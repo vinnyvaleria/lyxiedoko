@@ -1,8 +1,8 @@
-# Rua doko?
+# Ame doko?
 
-A simple website to track the time since Rua last streamed. That's it.
+A simple website to track the time since Ame last streamed. That's it.
 
-https://ruadoko.pages.dev/
+https://amedoko.pages.dev/
 
 ## How it works
 
@@ -10,4 +10,4 @@ By utilizing a Cloudflare worker to fetch the last stream date from the Twitch A
 
 ## Credits
 
-- [Rua](https://www.twitch.tv/ruamamiya)
+- [AsagiAme](https://www.twitch.tv/asagiame)
