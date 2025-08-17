@@ -3,19 +3,19 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="How long has Ame left us?" />
-        <meta property="og:site_name" content="Ame doko?" />
+        <meta property="og:title" content="How long has Lyxie been away for?" />
+        <meta property="og:site_name" content="Lyxie doko?" />
         <meta property="og:type" content="website" />
         <meta
             property="og:description"
-            content="Use this to peer pressure Ame into streaming"
+            content="Use this to peer pressure Lyxie into streaming"
         />
         <meta
             property="og:image"
-            content="https://raw.githubusercontent.com/narendnp/amedoko/main/img/liksi.png"
+            content="https://raw.githubusercontent.com/vinnyvaleria/lyxiedoko/main/img/liksi.png"
         />
-        <meta property="og:url" content="https://lyxiedoko.pages.dev" />
-        <title>Ame doko?</title>
+        <meta property="og:url" content="https://lyxiedoko.pages.dev/" />
+        <title>Lyxie doko?</title>
         <link rel="icon" type="image/png" href="img/liksi.png" />
         <!-- Tailwind CSS for minimal styling -->
         <script src="https://cdn.tailwindcss.com"></script>
@@ -23,176 +23,415 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <!-- Add Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
         <style>
             :root {
                 --light-blue: #4a90e2;
                 --coral: #ff7b7b;
                 --orange: #ff9666;
+                --primary-gradient: linear-gradient(
+                    135deg,
+                    #667eea 0%,
+                    #764ba2 100%
+                );
+                --accent-gradient: linear-gradient(
+                    135deg,
+                    #f093fb 0%,
+                    #f5576c 100%
+                );
+                --counter-gradient: linear-gradient(
+                    135deg,
+                    #4facfe 0%,
+                    #00f2fe 100%
+                );
             }
+
+            * {
+                box-sizing: border-box;
+            }
+
             body {
                 color: white;
-                font-family: "Inter", sans-serif;
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
             }
 
-            h1 {
-                position: relative;
-                color: #ff723a;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            }
-
-            .gradient-text {
-                background: linear-gradient(120deg, #1b85ff 0%, #ff5f5f 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                color: transparent;
-                filter: drop-shadow(1.5px 1.5px #4d4d4d);
-            }
-            .counter {
-                text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-            }
-            .bg-image {
+            /* Background with overlay */
+            .bg-container {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
-                opacity: 1;
-                z-index: -1;
-                filter: brightness(0.75);
+                z-index: -2;
             }
+
+            .bg-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.8) saturate(1.2);
+            }
+
+            .bg-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: -1;
+            }
+
+            /* Enhanced typography */
+            .main-title {
+                font-family: "Poppins", sans-serif;
+                font-weight: 900;
+                font-size: clamp(2.5rem, 8vw, 4.5rem);
+                line-height: 1.1;
+                background: linear-gradient(
+                    135deg,
+                    #fbbf24 0%,
+                    #f59e0b 50%,
+                    #f97316 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+                filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.7));
+                letter-spacing: -0.02em;
+                margin-bottom: 2rem;
+                animation: glow 3s ease-in-out infinite alternate;
+            }
+
+            @keyframes glow {
+                from {
+                    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.7))
+                        drop-shadow(0 0 15px rgba(251, 191, 36, 0.2));
+                }
+                to {
+                    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.7))
+                        drop-shadow(0 0 25px rgba(251, 191, 36, 0.4));
+                }
+            }
+
+            .subtitle {
+                font-family: "Inter", sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.25rem, 4vw, 2rem);
+                color: rgba(255, 255, 255, 0.95);
+                text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+                margin-bottom: 2rem;
+                letter-spacing: -0.01em;
+            }
+
+            .counter {
+                font-family: "Poppins", sans-serif;
+                font-weight: 800;
+                font-size: clamp(2.5rem, 6vw, 4rem);
+                background: linear-gradient(
+                    135deg,
+                    #60a5fa 0%,
+                    #3b82f6 50%,
+                    #2563eb 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+                filter: drop-shadow(2px 4px 12px rgba(0, 0, 0, 0.5));
+                margin-bottom: 2rem;
+                letter-spacing: -0.02em;
+                text-align: center;
+                animation: pulse 2s ease-in-out infinite alternate;
+            }
+
+            @keyframes pulse {
+                from {
+                    transform: scale(1);
+                }
+                to {
+                    transform: scale(1.02);
+                }
+            }
+
+            .date-info {
+                font-family: "Inter", sans-serif;
+                font-weight: 500;
+                font-size: clamp(1rem, 2.5vw, 1.25rem);
+                color: rgba(255, 255, 255, 0.9);
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+                margin-bottom: 1rem;
+            }
+
+            .date-value {
+                font-weight: 600;
+                background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.5));
+            }
+
             .content-wrapper {
                 position: relative;
                 z-index: 1;
+                padding: 2rem 1rem;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
-            .twitch-button {
+
+            .character-image {
+                width: 8rem;
+                height: 8rem;
+                margin-bottom: 2rem;
+                filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.4));
+                transition: transform 0.3s ease;
+            }
+
+            .character-image:hover {
+                transform: scale(1.05) rotate(5deg);
+            }
+
+            .button-group {
+                display: flex;
+                gap: 1rem;
+                margin-top: 2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .enhanced-button {
+                font-family: "Inter", sans-serif;
+                font-weight: 600;
+                font-size: clamp(0.875rem, 2vw, 1rem);
+                padding: 0.875rem 1.5rem;
+                border-radius: 12px;
+                text-decoration: none;
+                color: white;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
                 position: relative;
-                z-index: 2;
+                overflow: hidden;
             }
+
+            .enhanced-button::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+                );
+                transition: left 0.5s ease;
+            }
+
+            .enhanced-button:hover::before {
+                left: 100%;
+            }
+
+            .twitch-button {
+                background: linear-gradient(135deg, #9147ff 0%, #772ce8 100%);
+            }
+
+            .twitch-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(145, 71, 255, 0.4);
+            }
+
+            .twitter-button {
+                background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+            }
+
+            .twitter-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(29, 161, 242, 0.4);
+            }
+
             .footer {
                 position: fixed;
-                bottom: 3rem;
+                bottom: 0;
                 width: 100%;
-                padding: 1.5rem 1rem;
+                padding: 1.5rem;
                 text-align: center;
                 z-index: 2;
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.6),
+                    transparent
+                );
             }
+
             .social-icon {
-                width: 20px;
-                height: 20px;
-                display: inline-block;
-                vertical-align: middle;
-                margin: 0 5px;
+                width: 1.25rem;
+                height: 1.25rem;
                 opacity: 0.7;
-                transition: opacity 0.3s ease;
+                transition: all 0.3s ease;
             }
-            .social-icon:hover {
+
+            .social-link:hover .social-icon {
                 opacity: 1;
+                transform: translateY(-2px);
             }
-            .text-shadow {
-                text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+
+            @media (min-width: 768px) {
+                .character-image {
+                    width: 12rem;
+                    height: 12rem;
+                }
+
+                .enhanced-button {
+                    padding: 1rem 2rem;
+                    font-size: 1.125rem;
+                }
+
+                .button-group {
+                    gap: 1.5rem;
+                }
+            }
+
+            /* Loading animation */
+            .loading {
+                background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.1) 25%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0.1) 75%
+                );
+                background-size: 200% 100%;
+                animation: shimmer 1.5s infinite;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            @keyframes shimmer {
+                0% {
+                    background-position: 200% 0;
+                }
+                100% {
+                    background-position: -200% 0;
+                }
             }
         </style>
     </head>
-    <body class="min-h-screen flex flex-col items-center justify-center p-4">
-        <img src="img/bg.png" alt="Background" class="bg-image" />
-        <img src="img/liksi.png" alt="tskr" class="w-32 md:w-48 mb-6" />
-
-        <h1 class="text-4xl md:text-6xl font-bold mb-8">
-            Feesh is sleeping :(
-        </h1>
-
-        <div class="text-2xl md:text-3xl mb-8 text-shadow">
-            Time since last stream:
+    <body>
+        <div class="bg-container">
+            <img src="img/bg.png" alt="Background" class="bg-image" />
+            <div class="bg-overlay"></div>
         </div>
 
-        <div
-            id="counter"
-            class="counter text-5xl md:text-5xl font-bold mb-8 text-[#4a90e2]"
-        >
-            Loading...
-        </div>
+        <div class="content-wrapper">
+            <img src="img/liksi.png" alt="tskr" class="character-image" />
 
-        <div class="text-xl mb-4 text-shadow">Last stream was on:</div>
-        <div class="text-xl mb-4">
-            <span id="lastStreamDate" class="text-[#ff723a] text-shadow"
-                >Loading...</span
-            >
-        </div>
-        <div class="flex gap-2 md:gap-4 z-10">
-            <a
-                href="https://www.twitch.tv/celyxie/videos"
-                target="_blank"
-                class="twitch-button px-3 py-2.5 text-base md:px-6 md:py-3 md:text-lg bg-[#9147FF] hover:bg-[#772ce8] rounded-lg transition-colors duration-300 flex items-center gap-2"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+            <h1 class="main-title text-center">Still rolling away</h1>
+
+            <div class="subtitle text-center">Time since last stream:</div>
+
+            <div id="counter" class="counter loading">Loading...</div>
+
+            <div class="date-info text-center">Last stream was on:</div>
+            <div class="date-info text-center">
+                <span id="lastStreamDate" class="date-value loading"
+                    >Loading...</span
                 >
-                    <path
-                        d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
-                    />
-                </svg>
-                Don't watch the VODs
-            </a>
+            </div>
 
-            <a
-                href="https://x.com/intent/tweet?text=@celyxieee%20stream%20when%3F"
-                target="_blank"
-                class="px-3 py-2.5 text-base md:px-6 md:py-3 md:text-lg bg-black hover:bg-zinc-800 rounded-lg transition-colors duration-300 flex items-center gap-2"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+            <div class="button-group">
+                <a
+                    href="https://www.twitch.tv/celyxie/videos"
+                    target="_blank"
+                    class="enhanced-button twitch-button"
                 >
-                    <path
-                        d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-                    />
-                </svg>
-                Don't tweet her
-            </a>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
+                        />
+                    </svg>
+                    Don't watch the VODs
+                </a>
+
+                <a
+                    href="https://x.com/intent/tweet?text=@celyxieee%20stream%20when%3F"
+                    target="_blank"
+                    class="enhanced-button twitter-button"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+                        />
+                    </svg>
+                    Don't tweet her
+                </a>
+            </div>
         </div>
+
         <footer class="footer">
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex justify-center gap-6">
-                    <a
-                        href="https://github.com/narendnp/amedoko"
-                        target="_blank"
-                        class="text-white hover:text-[#4a90e2] transition-colors duration-300"
+            <div class="flex justify-center gap-6">
+                <a
+                    href="https://github.com/narendnp/amedoko"
+                    target="_blank"
+                    class="social-link text-white hover:text-blue-400 transition-all duration-300"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="social-icon"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                            />
-                        </svg>
-                    </a>
-                    <a
-                        href="https://x.com/narendnp_"
-                        target="_blank"
-                        class="text-white hover:text-orange-400 transition-colors duration-300"
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                        />
+                    </svg>
+                </a>
+                <a
+                    href="https://x.com/narendnp_"
+                    target="_blank"
+                    class="social-link text-white hover:text-orange-400 transition-all duration-300"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="social-icon"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-                            />
-                        </svg>
-                    </a>
-                </div>
+                        <path
+                            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+                        />
+                    </svg>
+                </a>
             </div>
         </footer>
 
@@ -219,11 +458,17 @@
                 const minutes = duration.minutes();
                 const seconds = duration.seconds();
 
-                document.getElementById(
-                    "counter"
-                ).innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                document.getElementById("lastStreamDate").innerHTML =
-                    lastStream.format("MMMM Do YYYY, h:mm:ss a");
+                const counterElement = document.getElementById("counter");
+                const dateElement = document.getElementById("lastStreamDate");
+
+                // Remove loading class once data is loaded
+                counterElement.classList.remove("loading");
+                dateElement.classList.remove("loading");
+
+                counterElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                dateElement.innerHTML = lastStream.format(
+                    "MMMM Do YYYY, h:mm:ss a"
+                );
             }
 
             // Update counter every second
